@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is for You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #ffb8b8;
+            --accent-color: #ffd166;
+            --text-color: #333;
+            --light-color: #fafafa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Poppins', sans-serif;
+            perspective: 1000px;
+        }
+
+        .card-container {
+            width: 380px;
+            height: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+            cursor: pointer;
+        }
+
+        .card-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            color: var(--light-color);
+        }
+
+        .card-front img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--light-color);
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-front h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front p {
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .open-btn {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .open-btn:active {
+            transform: translateY(0);
+        }
+
+        .card-back {
+            background-color: var(--light-color);
+            transform: rotateY(180deg);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .back-header h2 {
+            color: var(--primary-color);
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .back-header p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .cake-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .wish-text {
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-color);
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .signature {
+            font-family: 'Pacifico', cursive;
+            color: var(--primary-color);
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .flip-back {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .flip-back:hover {
+            background-color: #ff5252;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(600px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card-front">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a65165b6-3248-49d5-b12f-a05db35dac80.png" alt="Colorful birthday cake with candles glowing on a pastel blue background, ready to celebrate a special day" />
+            <h1>Happy Birthday!</h1>
+            <p>Click below to see your special message</p>
+            <button class="open-btn">Open Card</button>
+        </div>
+        <div class="card-back">
+            <div class="back-header">
+                <h2>To Someone Special</h2>
+                <p> HAPPY BIRTHDAY JANI </p>
+            </div>
+            <img class="cake-img" src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df86772c-9e50-4fef-a85c-4b4af9e7d53e.png" alt="Close-up of a beautifully decorated chocolate cake with fresh berries and Happy Birthday written in icing" />
+            <p class="wish-text">
+                May your birthday be filled with joy, happiness, and all the wonderful things you deserve. Here's to another year of amazing memories and great adventures! Cheers to you!
+            </p>
+            <p class="signature">With love,</p>
+            <button class="flip-back">Flip Back</button>
+        </div>
+    </div>
+
+    <script>
+        const card = document.querySelector('.card-container');
+        const openBtn = document.querySelector('.open-btn');
+        const flipBackBtn = document.querySelector('.flip-back');
+
+        openBtn.addEventListener('click', () => {
+            card.classList.add('flipped');
+            createConfetti();
+        });
+
+        flipBackBtn.addEventListener('click', () => {
+            card.classList.remove('flipped');
+        });
+
+        function createConfetti() {
+            const container = document.querySelector('body');
+            const colors = ['#ff6b6b', '#ffb8b8', '#ffd166', '#06d6a0', '#118ab2'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.width = Math.random() * 8 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.animation = `snow ${Math.random() * 3 + 2}s linear forwards`;
+                container.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
+
